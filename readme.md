@@ -1,11 +1,17 @@
-## jQuery Skylab Coders
+## JSON & AJAX Skylab Coders
 
-This repo contains some jQuery exercices done during the bootcamp Skylab Coders Autumn 2016.
+This repo contains some JSON & AJAX exercices done during the bootcamp Skylab Coders Autumn 2016.
 
-These jQuery are:
+These JSON & AJAX are:
 
-* [19-percentage-calculator](https://github.com/FerranGT/jQuery/tree/master/19-percentage-calculator)
+* [04-jquery-spotify-API](https://github.com/FerranGT/JSON-AJAX/tree/master/04-jquery-spotify-API)
 
-* [Examples](https://github.com/FerranGT/jQuery/tree/master/Examples)
+* [05-youtube-json](https://github.com/FerranGT/JSON-AJAX/tree/master/05-youtube-json)
 
-* [jQuery-koans-master](https://github.com/FerranGT/jQuery/tree/master/jQuery-koans-master)
+* [14-random-user](https://github.com/FerranGT/JSON-AJAX/tree/master/14-random-user)
+
+* [16-clock-timezone](https://github.com/FerranGT/JSON-AJAX/tree/master/16-clock-timezone)
+
+* [18-beers-app](https://github.com/FerranGT/JSON-AJAX/tree/master/18-beers-app)
+
+* [demo-ajax-jquery](https://github.com/FerranGT/JSON-AJAX/tree/master/demo-ajax-jquery)
