@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Demo AJAX jQuery</title>
+</head>
+<body>
+
+	<h1>My Demo API</h1>
+	<form action="">
+		<input type="text" id="username">
+		<button>Get Data!</button>
+	</form>
+
+	<ul></ul>
+
+
+	<script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+	<script>
+
+	$("button").on("click", function( e ) {
+		e.preventDefault();
+		var userName = $("#username").val()
+
+		$.ajax({
+			url: 'https://api.github.com/users/' + userName + '/repos',
+			dataType: 'json'
+		})
+		.done( function( reposGithubUser ) {
+
+			var lisHtml = "";
+			$.each( reposGithubUser /* array */, function(i, repo) {
+				lisHtml += '<li><a target="_blank" href="' + repo.html_url  + '">' + repo.name + '</a></li>'
+			})
+			$("ul").html(lisHtml);
+
+		})
+
+	})
+
+
+

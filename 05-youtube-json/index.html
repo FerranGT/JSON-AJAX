@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Demo AJAX jQuery</title>
+<body>
+
+	<h1>My Demo Youtube</h1>
+	<button>Get Data!</button>
+	<h2></h2>
+	<img></img>
+	<a href=""></a>
+
+	<script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+	<script>
+
+	$("button").on("click", function() {
+
+		$.ajax({
+			url: 'youtube.json', // Es la ruta relativa el esta accediendo a http://127.0.0.1:8080/.json pq es un servidor local
+			dataType: 'json'
+		})
+		.done(function( data ) {
+
+			console.log(data);
+
+			//console.log(data.data.items[0].title);
+			$("h2").text( data.data.items[0].title ); 
+			$("img").attr( 'src', data.data.items[0].thumbnail.default ); 
+			$("img").appendTo('a');
+			$("a").attr( 'href', data.data.items[0].player.default ); 
+
+			/*$.each( data.colorsArray, function(i, color) {
+				$("#my-colors").append( $("<li>" + color.colorName + "</li>") )
+			})*/
+
+		})
+
+	})
+
+
+
+
+	</script>
+</body>
+</html>

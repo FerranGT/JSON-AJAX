@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Spotify</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="jumbotron">
+		<div class="container">
+			<h1>Spotify</h1>
+			<form id="spotify-search" action="" method="POST" class="form-inline" role="form">
+
+				<div class="form-group">
+					<label class="sr-only" for="">label</label>
+					<input type="text" class="form-control"  placeholder="Input beer name...">
+				</div>
+
+				<button type="submit" class="btn btn-primary">Search!</button>
+			</form>
+		</div>
+	</div>
+
+	<div id="results" class="container">
+		<form action="" class="form-inline"> <!-- Ponemos un form al select para usar la class form-inline para que no nos ocupe todo el ancho de pantalla -->
+
+			<select name="" id="" class="form-control hide">
+			</select>
+
+			<div id="details">
+				<h2><span></span> <small></small></h2>
+				<p></p>
+			</div>
+
+		</form>
+	</div>
+
+	<div id="results2" class="container">
+		<form action="" class="form-inline"> <!-- Ponemos un form al select para usar la class form-inline para que no nos ocupe todo el ancho de pantalla -->
+
+			<select name="" id="" class="form-control hide">
+			</select>
+
+			<div id="details">
+				<h2><span></span> <small></small></h2>
+				<p></p>
+			</div>
+
+		</form>
+	</div>
+
+	<div class="container">
+		<ul id="results3"></ul>
+	</div>
+
+
+
+	<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+	<script>
+		$("#spotify-search").on("submit", function(e) {
+
+			e.preventDefault();// prevent forms from being submitted unless a flag variable is set, en este caso que si esta vacio y apretamos enter no va hacer nada
+			var $input = $(this).find("input");//this apunta #beer-search
+			var spotifyQuery = $input.val();
+			var URL_SEARCH_API = "https://api.spotify.com/v1/search?type=artist&query="
+			var urlSearchSpotify = URL_SEARCH_API + spotifyQuery;
+			console.log(urlSearchSpotify);
+
+			$.ajax({
+				url: urlSearchSpotify,
+				dataType: 'json'
+			})
+			.done(function( dataSpotify ) {
+				console.log( dataSpotify);
+				var listartist = "<option>Select Artist...</option>";
+				$.each( dataSpotify.artists.items, function(i, artist) {
+					listartist += '<option value="' + artist.id + '">' + artist.name + '</option>'
+				})
+				$("#results select")
+				.html(listartist)
+				.removeClass("hide");
+
+				$("#results select").on("change", function() {
+					$(this).find("option").first().attr("disabled", "disabled")
+					var idSpoty = $(this).val();
+					var URL_API_DETAILS = 'https://api.spotify.com/v1/artists/' + idSpoty + '/albums'
+					//var urlDetailsBeer = URL_API_DETAILS + idSpoty;
+
+					$.ajax({
+						url: URL_API_DETAILS,
+						dataType: 'json'
+					})
+					.done( function ( detailsArtist ) {
+						console.log( detailsArtist);
+						var listalbum = "<option>Select Album...</option>";
+						$.each( detailsArtist.items, function(i, album) {
+							listalbum += '<option value="' + album.id + '">' + album.name + '</option>'
+						})
+						$("#results2 select")
+						.html(listalbum)
+						.removeClass("hide");
+						console.log(listalbum);
+
+					})
+
+				})
+
+
+
+				$("#results2 select").on("change", function() {
+					$(this).find("option").first().attr("disabled", "disabled")
+					var idSpoty2 = $(this).val();
+					var URL_API_DETAILS = 'https://api.spotify.com/v1/albums/' + idSpoty2 + '/tracks'
+
+					$.ajax({
+						url: URL_API_DETAILS,
+						dataType: 'json'
+					})
+					.done( function ( detailsTracks ) {
+						console.log( detailsTracks);
+						var listsongs = "";
+						$.each( detailsTracks.items, function(i, song) {
+							listsongs += '<li><a href="' + song.preview_url + '">' + song.name + '</a></li>'
+							// <li><a href="...">songName</a></li>
+						})
+
+						$("#results3")
+						.html(listsongs)
+						 //.removeClass("hide");
+						 console.log(listsongs);
+
+						})
+
+				})
+
+
+			})
+
+		})
+	</script>
+
+</body>
+</html>
